@@ -1,0 +1,123 @@
+<!doctype html>
+{% load static %}
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Register Face</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+crossorigin="anonymous" referrerpolicy="no-referrer" />           
+            
+</head>
+
+<body  style="background-image: url('{% static '/background1.jpg' %}');" >
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+    crossorigin="anonymous"></script>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <a class="navbar-brand" href="#">Navbar</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link " aria-current="page" href="/">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link " href="/attendance">Attendance</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link  " href="/storage">Data</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active " href="/register">Registration</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link  " href="/absenties">Absenties</a>
+          </li>
+        </ul>
+        
+      </div>
+    </nav>
+   
+    <div  class="container">
+        <h1 class="text-center"  >CAMERA</h1>
+        {%if success %}
+        <div class="alert alert-success alert-dismissible fade show"  role="alert">
+          <strong>Hello</strong> form submitted
+          <button type="button" class="close "  data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+            {%endif%}
+      <canvas id="mycanvas" width="540" height="390" style="border: 2px solid red; "></canvas>
+      <script>
+          var c = document.getElementById('mycanvas');
+          var ctx = c.getContext("2d");
+          var webcamVideo = document.createElement('video');
+      
+          navigator.mediaDevices.getUserMedia({ video: true })
+              .then(function(stream) {
+                  webcamVideo.srcObject = stream;
+                  webcamVideo.play(); // Start video playback
+                  drawVideoToCanvas(); // Call function to draw video on canvas
+              })
+              .catch(function(error) {
+                  console.error('Error accessing webcam:', error);
+              });
+          
+          function drawVideoToCanvas() {
+              ctx.drawImage(webcamVideo, 0, 0, c.width, c.height);
+              requestAnimationFrame(drawVideoToCanvas);
+          }
+          function captureAndSubmit() {
+            captureImage();
+            return True; 
+             // Prevent default form submission
+        }
+        
+      
+          function captureImage() {
+              ctx.drawImage(webcamVideo, 0, 0, c.width, c.height);
+              var dataURL = c.toDataURL('image/png');
+              document.getElementById('capturedImageData').value = dataURL;
+              //console.log(dataURL)
+      
+              // Stop video playback after capturing the image
+              webcamVideo.pause();
+              webcamVideo.srcObject.getTracks().forEach(track => track.stop());
+          }
+      </script>
+      <form action="/register" method="POST" onsubmit="return captureAndSubmit();">
+        {% csrf_token %}
+        <div class="mb-3"  style="position: absolute; left: 620px; top: 180px; right: 10px;">
+          <label for="exampleFormControlInput1"   class="form-label">NAME</label>
+          <input type="text" class="form-control"  name="name" id="exampleFormControlInput1" placeholder="Enter Your Name"   required>
+          </br>
+          <label for="exampleFormControlInput2" class="form-label">PHONE NUMBER</label>
+          <input type="number" class="form-control" name="numbe" id="exampleFormControlInput2" placeholder="Enter Your Number"  required>
+          </br>
+          <label for="exampleFormControlInput3" class="form-label"  >EMAIL</label>
+          <input type="email" class="form-control"  name="emailid" id="exampleFormControlInput3" placeholder="Enter Your mailID"  required>
+        </div>
+        <input type="hidden" id="capturedImageData" name="capturedImageData">
+        <input type="submit" class="btn btn-success" value="Upload">
+      </br>
+    </br>
+  
+    </form>
+      </div>
+
+      <footer>
+        <p  class="text-center bg-dark text-light fixed-bottom my-0 py-2">Copyright&copy;2023 || For more information contact me at &nbsp;   <a href="https://www.facebook.com/profile.php?id=100009725612850" target="_blank" style="font-size: 20px;" ><i class="fa-brands fa-facebook" ></i></a></p>
+      </footer>
+</body>
+
+</html>

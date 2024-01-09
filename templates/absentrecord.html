@@ -1,0 +1,40 @@
+<!doctype html>
+{% load static %}
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>My Project</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body style="background-image: url('{% static '/background1.jpg' %}');">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+      crossorigin="anonymous"></script>
+      <div class="container">
+        <br>
+        <h1 style="font-family: 'Times New Roman', Times, serif; font-size: 25px;"><strong>FOLLOWING TABLE SHOWS THE LIST OF ALL THE ABSENTIES TILL NOW</strong></h1>
+
+      <br>
+      
+      
+      <table class="table table-dark table-striped" style="font-family: "Times New Roman", Times, serif;" >
+        <tr>
+            <th>NAME OF THE PERSON</th>
+            <th>DATE </th>    
+        </tr>
+        {% for s in value %}
+            <tr>
+                <td>{{ s.namee }}</td>
+                <td>{{ s.dat }}</td>  
+            </tr>
+        {% endfor %}
+    </table>
+  </div>
+</body>
+</html>

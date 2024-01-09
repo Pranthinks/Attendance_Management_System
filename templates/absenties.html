@@ -1,0 +1,86 @@
+<!doctype html>
+{% load static %}
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Absenties</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body style="background-image: url('{% static '/background1.jpg' %}');">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+    crossorigin="anonymous"></script>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark" mt-10>
+      <a class="navbar-brand" href="#">Navbar</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link " aria-current="page" href="/">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/attendance">Attendance</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/storage">Data</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link  " href="/register">Registration</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active " href="/absenties">Absenties</a>
+          </li>
+
+        </ul>
+       
+      </div>
+  </nav>
+  <div class='container'>
+    <br>
+    <h1 style="font-family: 'Times New Roman', Times, serif; font-size: 25px;"><strong>ABSENTIES FOR TODAY</strong></h1>
+    <br>
+    
+    <table class="table table-dark table-striped" style="font-family: "Times New Roman", Times, serif;" >
+      <tr>
+          <th>NAME OF THE PERSON</th>
+          
+      </tr>
+      {% for student in absent_students %}
+          <tr>
+              <td>{{ student.nam }}</td>
+              
+          </tr>
+      {% endfor %}
+  </table>
+  <br>
+  <br>
+  
+
+          
+  <div class="dropdown">
+    <button type="button" class="btn btn-success dropdown-toggle" data-bs-toggle="dropdown" style="font-family: "Times New Roman", Times, serif;" aria-expanded="false">
+     <strong> To see the complete Absenties record, click on me!!!</strong>
+    </button>
+    <ul class="dropdown-menu">
+      <li><a class="dropdown-item" style="background-color: #f2f2f2;font-family: "Times New Roman", Times, serif;" href="/absentrecord"><strong>List of total absenties</strong></a></li>
+      
+    </ul>
+  </div>
+    
+
+
+  </div>
+  <footer>
+    <p  class="text-center bg-dark text-light fixed-bottom my-0 py-2">Copyright&copy;2023 || For more information contact me at &nbsp;   <a href="https://www.facebook.com/profile.php?id=100009725612850" target="_blank" style="font-size: 20px;" ><i class="fa-brands fa-facebook" ></i></a></p>
+  </footer>
+</body>
+</html>
